@@ -38,24 +38,6 @@ jobs:
           git commit -m "Automated docs update on branch $BRANCH_NAME"
           git push --set-upstream origin "$BRANCH_NAME"
 
-      # Create a pull request to simulate collaboration and earn the Pull Shark achievement
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          title: "Automated PR for Docs Update"
-          body: "This PR contains automated changes to documentation files."
-          base: main  # Change to any target branch
-          head: ${{ github.ref }}
-          commit-message: "Automated PR commit for docs update"
-          
-      # Merge Pull Requests to increase activity
-      - name: Merge Pull Request
-        uses: peter-evans/merge-pull-request@v2  # Changed back to version v2
-        with:
-          pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
-          merge-method: merge  # Options: merge, squash, rebase
-          commit-message: "Merge automated PR"
-
       # Trigger the First Issue achievement by creating an issue
       - name: Create an Issue
         run: |
