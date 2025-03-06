@@ -21,7 +21,7 @@ jobs:
       - name: Get current time
         run: |
           CURRENT_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          echo "$CURRENT_TIME" > time.txt
+          echo "$CURRENT_TIME" >> time.txt
         continue-on-error: true  # Continue execution even if this step fails
 
       # Step to commit the updated time
