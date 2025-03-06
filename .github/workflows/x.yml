@@ -50,7 +50,7 @@ jobs:
           
       # Merge Pull Requests to increase activity
       - name: Merge Pull Request
-        uses: peter-evans/merge-pull-request@v3  # Updated to use version v3
+        uses: peter-evans/merge-pull-request@v2  # Changed back to version v2
         with:
           pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
           merge-method: merge  # Options: merge, squash, rebase
