@@ -28,8 +28,6 @@ jobs:
           # Create and push files to simulate work
           echo "This is an update for $TIMESTAMP" > "docs/updates/$TIMESTAMP/README.md"
           echo "Documentation update at $TIMESTAMP" > "docs/updates/$TIMESTAMP/CHANGELOG.md"
-
-          # Stage, commit, and push changes
           git add .
           git commit -m "Update docs at $TIMESTAMP"
           git push origin main
@@ -40,7 +38,7 @@ jobs:
           git commit -m "Automated docs update on branch $BRANCH_NAME"
           git push --set-upstream origin "$BRANCH_NAME"
 
-  
+    
       # Trigger the First Issue achievement by creating an issue
       - name: Create an Issue
         run: |
@@ -68,3 +66,34 @@ jobs:
             git commit -m "Quickdraw commit $TIMESTAMP"
             git push origin main
           done
+
+      # Forking a repository to earn Fork Shark achievement
+      - name: Fork Repository
+        run: |
+          curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
+          -X POST https://api.github.com/repos/${{ github.repository }}/forks
+
+      # Code Review: Add a fake review to simulate activity
+      - name: Simulate Code Review
+        run: |
+          curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
+          -X POST -H "Accept: application/vnd.github.v3+json" \
+          -d '{"event":"COMMENT","body":"Looks good to me!","commit_id":"$GITHUB_SHA"}' \
+          https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pull-request.outputs.pull-request-number }}/reviews
+          
+      # Simulate Contributing to Arctic Code Vault by archiving repo
+      - name: Archive Repository (Simulating Arctic Code Vault Contribution)
+        run: |
+          curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
+          -X PATCH -H "Accept: application/vnd.github.v3+json" \
+          -d '{"archived":true}' \
+          https://api.github.com/repos/${{ github.repository }}
+
+      # Creating an additional commit to simulate activity for Repository Contributor achievement
+      - name: Extra Commit for Repo Contributor
+        run: |
+          TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+          echo "Extra commit to contribute for repo contributor achievement" > "activity/$TIMESTAMP.txt"
+          git add "activity/$TIMESTAMP.txt"
+          git commit -m "Contribute to repo with an extra commit"
+          git push origin main
