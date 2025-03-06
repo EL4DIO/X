@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Git
         run: |
@@ -50,8 +50,7 @@ jobs:
           
       # Merge Pull Requests to increase activity
       - name: Merge Pull Request
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peter-evans/merge-pull-request@v2
+        uses: peter-evans/merge-pull-request@v3  # Updated to use version v3
         with:
           pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
           merge-method: merge  # Options: merge, squash, rebase
@@ -115,5 +114,3 @@ jobs:
           git add "activity/$TIMESTAMP.txt"
           git commit -m "Contribute to repo with an extra commit"
           git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
