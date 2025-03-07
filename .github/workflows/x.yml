@@ -118,7 +118,7 @@ jobs:
             echo "Committer commit $TIMESTAMP" > "committer/committer_$TIMESTAMP.txt"
             git add "committer/committer_$TIMESTAMP.txt"
             git commit -m "Committer commit $TIMESTAMP"
-            git push https://github.com/${{ github.repository }}.git HEAD:main
+            git push origin main
           done
         
 
