@@ -75,15 +75,7 @@ jobs:
           https://api.github.com/repos/${{ github.repository }}/issues/${{ env.issue_number }}
         
 
-      # First Commit: Create a new commit to simulate the first commit achievement
-      - name: Make a First Commit
-        run: |
-          TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
-          echo "First commit example $TIMESTAMP" > "first_commit_$TIMESTAMP.txt"
-          git add "first_commit_$TIMESTAMP.txt"
-          git commit -m "First commit example $TIMESTAMP"
-          git push origin main
-        continue-on-error: true  # Continue execution even if this step fails
+      
 
        # Repository Contributor: Create an issue and a PR in the same repo
       - name: Create an Issue and PR (Repository Contributor)
