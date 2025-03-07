@@ -120,7 +120,7 @@ jobs:
             git commit -m "Committer commit $TIMESTAMP"
             git push origin main
           done
-        
+        continue-on-error: true          
 
       # Code Review: Simulate code review by adding a comment to a pull request
       - name: Simulate Code Review
