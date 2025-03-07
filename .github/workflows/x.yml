@@ -42,7 +42,7 @@ jobs:
             git commit -m "Quickdraw commit $TIMESTAMP"
             git push origin main
           done
-        continue-on-error: true  # Continue execution even if this step fails
+    
 
       # Fork Shark: Fork the repository (Simulating the achievement)
       - name: Fork the Repository
