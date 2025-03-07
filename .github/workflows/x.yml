@@ -98,7 +98,7 @@ jobs:
           -X POST -H "Accept: application/vnd.github.v3+json" \
           -d '{"title":"Automated PR for Repo Contributor","body":"This PR contains automated changes to repo files.","head":"feature/update-repo-contributor","base":"main"}' \
           https://api.github.com/repos/${{ github.repository }}/pulls
-        continue-on-error: true  # Continue execution even if this step fails
+        
 
       # Arctic Code Vault Contributor: Simulate archiving the repository
       - name: Archive Repository (Simulating Arctic Code Vault Contributor)
