@@ -84,21 +84,36 @@ jobs:
           git push origin main
         continue-on-error: true  # Continue execution even if this step fails
 
-      # Repository Contributor: Create an issue and a PR in the same repo
+       # Repository Contributor: Create an issue and a PR in the same repo
       - name: Create an Issue and PR (Repository Contributor)
         run: |
           # Create issue
-          curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
+          response=$(curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
           -X POST -H "Accept: application/vnd.github.v3+json" \
           -d '{"title":"Automated Issue for Repo Contributor","body":"This is an issue created by a GitHub action."}' \
-          https://api.github.com/repos/${{ github.repository }}/issues
-
+          https://api.github.com/repos/${{ github.repository }}/issues)
+          echo "response=$response"
+      
+          # Extract the issue number from the response
+          issue_number=$(echo $response | jq .number)
+          echo "issue_number=$issue_number" >> $GITHUB_ENV
+      
           # Create PR
           curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
           -X POST -H "Accept: application/vnd.github.v3+json" \
           -d '{"title":"Automated PR for Repo Contributor","body":"This PR contains automated changes to repo files.","head":"feature/update-repo-contributor","base":"main"}' \
           https://api.github.com/repos/${{ github.repository }}/pulls
         
+      
+      # Close the created issue
+      - name: Close the Created Issue
+        run: |
+          curl -u "github-actions:${{ secrets.GITHUB_TOKEN }}" \
+          -X PATCH -H "Accept: application/vnd.github.v3+json" \
+          -d '{"state": "closed"}' \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ env.issue_number }}
+        
+ 
 
       # Arctic Code Vault Contributor: Simulate archiving the repository
       - name: Archive Repository (Simulating Arctic Code Vault Contributor)
