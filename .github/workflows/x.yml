@@ -35,9 +35,11 @@ jobs:
       # Quickdraw: Push multiple commits rapidly to earn the achievement
       - name: Push New Files for Quickdraw
         run: |
+          mkdir -p "quickdraw"
           for i in {1..5}; do
             TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
-            echo "Quickdraw file created at $TIMESTAMP" > "quickdraw/quickdraw_$TIMESTAMP.txt"
+            echo "Quickdraw file created at $TIMESTAMP" >> "quickdraw/quickdraw_$TIMESTAMP.txt"
+            ls "quickdraw/quickdraw_$TIMESTAMP.txt"
             git add "quickdraw/quickdraw_$TIMESTAMP.txt"
             git commit -m "Quickdraw commit $TIMESTAMP"
             git push origin main
