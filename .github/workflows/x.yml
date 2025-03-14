@@ -28,7 +28,8 @@ jobs:
       - name: Commit updated time
         run: |
           current_second=$(date +%S)
-          echo current_second
+          echo "$current_second"
+          
           if [ "$current_second" -eq 0 ] || [ "$current_second" -eq 10 ] || [ "$current_second" -eq 52 ]; then
                 git add time.txt
                 git commit -m "Update time to $CURRENT_TIME"
