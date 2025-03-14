@@ -1,4 +1,4 @@
-name: Update Current Time and Earn Achievements
+name: Update Current Time
 
 on:
   schedule:
@@ -29,7 +29,7 @@ jobs:
         run: |
           current_second=$(date +%S)
           echo current_second
-          if [ "$current_second" -eq 0 ] || [ "$current_second" -eq 10 ] || [ "$current_second" -eq 52]; then
+          if [ "$current_second" -eq 0 ] || [ "$current_second" -eq 10 ] || [ "$current_second" -eq 52 ]; then
                 git add time.txt
                 git commit -m "Update time to $CURRENT_TIME"
                 git push https://github.com/${{ github.repository }}.git HEAD:main
